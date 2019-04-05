@@ -1,0 +1,78 @@
+﻿@page
+@model crud_webapp.Pages.Customers.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!-- Alert -->
+<div class="row margin-top-20">
+    <div class="col-md-12">
+        @{
+            if (Model.message != String.Empty)
+            {
+                <div class="@Model.style">
+                    <strong>@Model.title</strong> @Model.message
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Edit</h1>
+    </div>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <div asp-validation-summary="All">
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="@Model.Customer.Id" />
+            </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control border-2" asp-for="@Model.Customer.Name" />
+            </div>
+            <div class="form-group">
+                <label for="name">Salary</label>
+                <input type="text" class="form-control border-2" asp-for="@Model.Customer.Salary" />
+            </div>
+            <div class="form-group">
+                <label for="name">Birthday</label>
+                <input type="text" class="form-control border-2" asp-for="@Model.Customer.Birthday" />
+            </div>
+            <div class="form-group">
+                <label for="current">Picture</label>
+                @if (@Model.Customer.Picture != null)
+                {
+                    PictureConvert pictureConvert = new PictureConvert();
+                    string img = await pictureConvert.ByteToBase64(@Model.Customer.Picture);
+                    <a href="@img" target="_blank"><img src="@img" class="img-edit img-responsive pull-right" /></a>
+                }
+                else
+                {
+                    <h1 class="pull-right">Without picture.</h1>
+                }
+            </div>
+            <div class="form-group">
+                <input type="file" class="form-control border-2" name="picture" />
+            </div>
+            <div class="form-group">
+                <label for="name">Gender</label>
+                <select class="form-control border-2" asp-for="@Model.Customer.Gender">
+                    <option value="M" selected>Male</option>
+                    <option value="F">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-warning col-md-2 pull-right" asp-action="post">Edit</button>
+                <a href="/Customers/Index" class="btn btn-info col-md-2 pull-right">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>

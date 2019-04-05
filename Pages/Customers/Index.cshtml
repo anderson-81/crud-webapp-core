@@ -1,0 +1,76 @@
+﻿@page
+@model crud_webapp.Pages.Customers.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Alert -->
+<div class="row margin-top-20">
+    <div class="col-md-12">
+        @{
+            if (Model.message != String.Empty)
+            {
+                <div class="@Model.style">
+                    <strong>@Model.title</strong> @Model.message
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>List</h1>
+    </div>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Id</th>
+                            <th>Name</th>
+                            <th class="text-center">Birthday</th>
+                            <th class="text-center">Select</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var customer in Model.Customers)
+                            {
+                                <tr>
+                                    <td class="text-center">@customer.Id</td>
+                                    <td>@customer.Name</td>
+                                    <td class="text-center">@customer.Birthday.ToShortDateString()</td>
+                                    <td class="text-center"><a class="btn btn-info" asp-route-id="@customer.Id" asp-page="./Details">Select</a></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+                <hr />
+                <a href="/Customers/Create" class="btn btn-success col-md-2 pull-right">Create</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<style>
+    th{
+        font-weight:bold;
+        color:red;
+    }
+
+    .text-center{
+        text-align:center;
+    }
+
+    .margin-top-20{
+        margin-top: 20px;
+    }
+</style>
