@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using crud_webapp.Data;
 using crud_webapp.Services;
+using System.Globalization;
 
 namespace crud_webapp
 {
@@ -19,6 +20,11 @@ namespace crud_webapp
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            var cultureInfo = new CultureInfo("en-US");
+            
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
         }
 
         public IConfiguration Configuration { get; }
@@ -30,11 +36,12 @@ namespace crud_webapp
             //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<CrudDbContext>(options => 
-                options.UseInMemoryDatabase("MemoryDatabase")
+                options.UseNpgsql(@"User ID=;Password=;Host=;Port=5432;Database=;")
             );
 
             services.AddDbContext<ApplicationDbContext>(options =>
-              options.UseInMemoryDatabase("MemoryDatabase"));
+                options.UseNpgsql(@"User ID=;Password=;Host=;Port=5432;Database=;")
+            );
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -49,7 +56,7 @@ namespace crud_webapp
 
             // Register no-op EmailSender used by account confirmation and password reset during development
             // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-            services.AddSingleton<IEmailSender, EmailSender>();
+            // services.AddSingleton<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

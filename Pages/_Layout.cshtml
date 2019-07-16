@@ -7,12 +7,18 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/font-awesome.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/prettify-1.0.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/bootstrap-datetimepicker.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/bootstrap-datetimepicker.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
@@ -41,7 +47,22 @@
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container">
+        <!-- Alert -->
+        <div class="row">
+            <div class="col-md-12">
+                @{
+                    if (TempData["message"] != null)
+                    {
+                        <div class="@TempData["style"]" role="alert" id="divalert" style="margin-top:30px;">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>@TempData["title"]</strong> @TempData["message"]
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <!-- Alert -->
         @RenderBody()
         <hr />
         <footer>
@@ -52,6 +73,10 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/jquery.maskMoney.min.js" asp-append-version="true"></script>
+        <script src="~/js/moment-with-locales.js" asp-append-version="true"></script>
+        <script src="~/js/bootstrap-datetimepicker.js" asp-append-version="true"></script>
+        <script src="~/js/jquery.dataTables.min.js" asp-append-version="true"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
@@ -69,7 +94,8 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+

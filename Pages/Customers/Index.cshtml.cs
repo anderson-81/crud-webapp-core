@@ -23,17 +23,10 @@ namespace crud_webapp.Pages.Customers
         [BindProperty]
         public IList<Customer> Customers { get; private set; }
 
-        [TempData]
-        public string message { get; set; }
-        [TempData]
-        public string title { get; set; }
-        [TempData]
-        public string style { get; set; }
-
         public IndexModel(CrudDbContext dbContext)
         {
             _dbContext = dbContext;
-            alert = new Alert();
+            alert = new Alert(this);
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -44,17 +37,9 @@ namespace crud_webapp.Pages.Customers
             }
             catch (Exception)
             {
-                CreateMessage("Error to listing.", 4);
+                alert.ShowMessage("Error to listing.", 4);
             }
             return Page();
-        }
-
-        private void CreateMessage(string text, int type = 1)
-        {
-            alert.SendMessage(text, type);
-            title = alert.Title;
-            message = alert.Message;
-            style = alert.Style;
         }
     }
 }

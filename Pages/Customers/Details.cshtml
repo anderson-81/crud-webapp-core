@@ -4,20 +4,6 @@
     ViewData["Title"] = "Details";
 }
 
-<!-- Alert -->
-<div class="row margin-top-20">
-    <div class="col-md-12">
-        @{
-            if (Model.message != String.Empty)
-            {
-                <div class="@Model.style">
-                    <strong>@Model.title</strong> @Model.message
-                </div>
-            }
-        }
-    </div>
-</div>
-
 <div class="row">
     <div class="col-md-12">
         <h1>Details</h1>
@@ -33,6 +19,8 @@
             <p class="p-data">@Model.Customer.Id</p>
             <label>Name</label>
             <p class="p-data">@Model.Customer.Name</p>
+            <label>E-mail</label>
+            <p class="p-data">@Model.Customer.Email</p>
             <label>Salary</label>
             <p class="p-data">@Model.Customer.Salary</p>
             <label>Birthday</label>
@@ -59,7 +47,6 @@
         <div class="col-md-offset-2 col-md-8 col-md-offset-2">
             <a class="btn btn-warning pull-right col-md-2" asp-route-id="@Model.Customer.Id" asp-page="./Edit">Edit</a>
             <a class="btn btn-info pull-right col-md-2" asp-page="./Index">Cancel</a>
-            <button class="btn btn-danger col-md-2 pull-right" asp-page-handler="get" asp-route-id="@Model.Customer.Id">Delete</button>
         </div>
     </div>
 </form>

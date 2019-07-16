@@ -4,20 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<!-- Alert -->
-<div class="row margin-top-20">
-    <div class="col-md-12">
-        @{
-            if (Model.message != String.Empty)
-            {
-                <div class="@Model.style">
-                    <strong>@Model.title</strong> @Model.message
-                </div>
-            }
-        }
-    </div>
-</div>
-
 <div class="row">
     <div class="col-md-12">
         <h1>List</h1>
@@ -28,7 +14,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <table class="table table-hover">
+                <table class="table table-hover" id="tbCustomers">
                     <thead>
                         <tr>
                             <th class="text-center">Id</th>

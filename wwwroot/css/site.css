@@ -81,3 +81,18 @@ th {
         display: none;
     }
 }
+
+/* My Styles */
+
+.modal-backdrop {
+    z-index: -1 !important;
+}
+
+#divalert {
+    margin-top: 30px !important;
+}
+
+.margin-left-7 {
+    margin-left: 7px;
+}
+

@@ -4,20 +4,6 @@
     ViewData["Title"] = "Edit";
 }
 
-<!-- Alert -->
-<div class="row margin-top-20">
-    <div class="col-md-12">
-        @{
-            if (Model.message != String.Empty)
-            {
-                <div class="@Model.style">
-                    <strong>@Model.title</strong> @Model.message
-                </div>
-            }
-        }
-    </div>
-</div>
-
 <div class="row">
     <div class="col-md-12">
         <h1>Edit</h1>
@@ -36,15 +22,19 @@
             </div>
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control border-2" asp-for="@Model.Customer.Name" />
+                <input type="text" class="form-control border-2" asp-for="@Model.Customer.Name" maxlength="45" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control border-2" asp-for="@Model.Customer.Email" maxlength="45" />
             </div>
             <div class="form-group">
                 <label for="name">Salary</label>
-                <input type="text" class="form-control border-2" asp-for="@Model.Customer.Salary" />
+                <input type="text" class="form-control border-2" asp-for="@Model.Customer.Salary" maxlength="10" />
             </div>
             <div class="form-group">
                 <label for="name">Birthday</label>
-                <input type="text" class="form-control border-2" asp-for="@Model.Customer.Birthday" />
+                <input type="text" class="form-control border-2" asp-for="@Model.Customer.Birthday" maxlength="10" />
             </div>
             <div class="form-group">
                 <label for="current">Picture</label>
@@ -56,7 +46,10 @@
                 }
                 else
                 {
-                    <h1 class="pull-right">Without picture.</h1>
+                    PictureConvert pictureConvert = new PictureConvert();
+                    string test = await pictureConvert.ByteToBase64((byte[])ViewData["picture"]);
+                    <a href="@test" target="_blank"><img src="@test" class="img-edit img-responsive pull-right" /></a>
+                    <!-- <h1 class="pull-right">Without picture.</h1> -->
                 }
             </div>
             <div class="form-group">
@@ -70,8 +63,29 @@
                 </select>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-warning col-md-2 pull-right" asp-action="post">Edit</button>
+                <button type="button" id="btnEdit" class="btn btn-warning col-md-2 pull-right" data-toggle="modal" data-target="#mdlOperation">Edit</button>
                 <a href="/Customers/Index" class="btn btn-info col-md-2 pull-right">Cancel</a>
+                <button type="button" id="btnDelete" class="btn btn-danger col-md-2 pull-right" data-toggle="modal" data-target="#mdlOperation">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mdlOperation" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Question</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="edit">Do you want edit?</p>
+                    <p class="delete">Do you want delete?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-warning col-md-2 pull-right edit" asp-action="post">Yes</button>
+                    <button type="submit" class="btn btn-danger col-md-2 pull-right delete" asp-page-handler="delete" asp-route-id="@Model.Customer.Id">Yes</button>
+                    <button type="button" class="btn btn-secondary col-md-2 pull-right" data-dismiss="modal">No</button>
+                </div>
             </div>
         </div>
     </div>
