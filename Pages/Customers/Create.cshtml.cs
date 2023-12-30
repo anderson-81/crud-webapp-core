@@ -16,7 +16,7 @@ namespace crud_webapp.Pages.Customers
     [Authorize]
     public class CreateModel : PageModel
     {
-        private readonly CrudDbContext _dbContext;
+        private readonly ApplicationDbContext _dbContext;
 
         private Alert alert;
 
@@ -25,7 +25,7 @@ namespace crud_webapp.Pages.Customers
         [BindProperty]
         public Customer Customer { get; set; }
 
-        public CreateModel(CrudDbContext dbContext)
+        public CreateModel(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
             Customer = new Customer

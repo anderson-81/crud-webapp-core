@@ -11,9 +11,6 @@ namespace crud_webapp.Data
 {
     public class Customer
     {
-        [NotMapped]
-        public DbSet<Customer> Customers { get; set; }
-
         [Key]
         public int Id { get; set; }
 
@@ -36,12 +33,25 @@ namespace crud_webapp.Data
         [ValidationBirthday18(ErrorMessage = "Only people over the age of 18 can be registered.")]
         public DateTime Birthday { get; set; }
 
-        [Required(ErrorMessage = "Gender is empty.")]
+        //[Required(ErrorMessage = "Gender is empty.")]
         [StringLength(1, MinimumLength = 1, ErrorMessage = "Amount of character is invalid for gender. Only one caracter.")]
-        [ValidationGenderAttribute(ErrorMessage = "Invalid gender.")]
+        //[ValidationGenderAttribute(ErrorMessage = "Invalid gender.")]
         public string Gender { get; set; }
 
         // [Required(ErrorMessage = "Picture is empty.")]
         public byte[] Picture { get; set; }
+
+        public Customer() { }
+
+        public Customer(int id, string name, string email, decimal salary, DateTime birthday, string gender, byte[] picture)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Email = email;
+            this.Salary = salary;
+            this.Birthday = birthday;
+            this.Gender = gender;
+            this.Picture = picture;
+        }
     }
 }

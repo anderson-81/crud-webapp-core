@@ -15,7 +15,7 @@ namespace crud_webapp.Pages.Customers
     [Authorize]
     public class EditModel : PageModel
     {
-        private readonly CrudDbContext _dbContext;
+        private readonly ApplicationDbContext _dbContext;
 
         private Alert alert;
 
@@ -28,7 +28,7 @@ namespace crud_webapp.Pages.Customers
 
         private static String _email;
 
-        public EditModel(CrudDbContext dbContext)
+        public EditModel(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
             alert = new Alert(this);

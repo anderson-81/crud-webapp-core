@@ -16,14 +16,14 @@ namespace crud_webapp.Pages.Customers
     [Authorize]
     public class IndexModel : PageModel
     {
-        private readonly CrudDbContext _dbContext;
+        private readonly ApplicationDbContext _dbContext;
 
         private Alert alert;
 
         [BindProperty]
         public IList<Customer> Customers { get; private set; }
 
-        public IndexModel(CrudDbContext dbContext)
+        public IndexModel(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
             alert = new Alert(this);

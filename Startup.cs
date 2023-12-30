@@ -20,9 +20,7 @@ namespace crud_webapp
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
             var cultureInfo = new CultureInfo("en-US");
-            
             CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
         }
@@ -32,17 +30,10 @@ namespace crud_webapp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddDbContext<CrudDbContext>(options => 
-                options.UseNpgsql(@"User ID=;Password=;Host=;Port=5432;Database=;")
-            );
-
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(@"User ID=;Password=;Host=;Port=5432;Database=;")
+                options.UseNpgsql(@"User ID=postgres;Password=121181;Host=localhost;Port=5432;Database=dbCrudNetCore;")
             );
-
+            
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -53,10 +44,6 @@ namespace crud_webapp
                     options.Conventions.AuthorizeFolder("/Account/Manage");
                     options.Conventions.AuthorizePage("/Account/Logout");
                 });
-
-            // Register no-op EmailSender used by account confirmation and password reset during development
-            // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-            // services.AddSingleton<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +59,8 @@ namespace crud_webapp
             {
                 app.UseExceptionHandler("/Error");
             }
+
+            app.UseDefaultFiles();
 
             app.UseStaticFiles();
 

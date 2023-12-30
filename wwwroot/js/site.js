@@ -9,7 +9,7 @@
 
     if (window.location.pathname == "/Customers") {
         $('#tbCustomers').DataTable({
-            "pageLength": 7
+            "pageLength": 6
         });
 
         $("#tbCustomers_length").remove();
@@ -19,6 +19,7 @@
 
     //maskMoney:
 
+    /*
     if (window.location.href.includes("Create") || window.location.href.includes("Edit")) {
         $('#Customer_Salary').maskMoney({
             thousands: '',
@@ -29,9 +30,11 @@
             allowEmpty: false
         });
     }
+    */
 
     //datetimepicker:
 
+    /*
     if (window.location.href.includes("Create") || window.location.href.includes("Edit")) {
         var date = new Date();
 
@@ -47,6 +50,7 @@
 
         $('#Customer_Birthday').data("DateTimePicker").maxDate(date);
     }
+    */
 
     //modal operations:
 
@@ -61,4 +65,23 @@
             $(".delete").css("display", "block");
         });
     }
+
+    //
+    /*
+    if (window.location.href.includes("Create")) {
+        $("#Customer_Salary").on("change paste keyup", function () {
+            $(this).val("3000.00");
+        });
+    }
+
+    if (window.location.href.includes("Edit")) {
+        $("#Customer_Salary").on("change paste keyup", function () {
+            $(this).val("3300.00");
+        });
+    }
+    */
+    $("form").submit(function () {
+        $("#btnSubmit").attr("disabled", true);
+        $("button").attr("disabled", true);
+    });
 });

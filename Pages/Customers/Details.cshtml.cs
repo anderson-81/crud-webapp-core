@@ -11,11 +11,9 @@ namespace crud_webapp.Pages.Customers
     [Authorize]
     public class DetailsModel : PageModel
     {
-        private readonly CrudDbContext _dbContext;
+        private readonly ApplicationDbContext _dbContext;
 
         private Alert alert;
-
-        private PictureConvert pictureConvert;
 
         [BindProperty]
         public Customer Customer { get; private set; }
@@ -23,7 +21,7 @@ namespace crud_webapp.Pages.Customers
         [TempData]
         public string Avatar { get; set; }
 
-        public DetailsModel(CrudDbContext dbContext)
+        public DetailsModel(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
             alert = new Alert(this);

@@ -15,7 +15,7 @@ namespace crud_webapp.Data.CustomValidations
     {
         public bool CheckEmail(String email)
         {
-            CrudDbContext db = new CrudDbContext();
+            ApplicationDbContext db = new ApplicationDbContext();
             return (db.Customer.Where(e => e.Email == email.ToString()).Count() == 0);
         }
     }

@@ -25,7 +25,7 @@ namespace crud_webapp.Services
             {
                 case 2:
                     page.TempData["Title"] = "Info!";
-                    page.TempData["Message"] = "alert alert-info alert-dismissible";
+                    page.TempData["Style"] = "alert alert-info alert-dismissible";
                     break;
                 case 3:
                     page.TempData["Title"] = "Warning!";
